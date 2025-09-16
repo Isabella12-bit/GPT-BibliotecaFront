@@ -19,19 +19,18 @@ class ProductoServicio {
     }
   }
 
-  buscarPorId(id, data) {
-    const producto = this.instanciarProducto(data);
-    return this.repositorio.buscarPorId(id, producto);
-  }
+  buscarPorId(id, tipo) {
+  return this.repositorio.buscarPorId(id, tipo);
+}
 
   insertar(data) {
-    const producto = this.instanciarProducto(data);
+    const producto = this.instanciarProducto(data.tipo);
     console.log(producto);
     return this.repositorio.insertar(producto);
   }
 
   actualizar(id, data) {
-    const producto = this.instanciarProducto(data);
+    const producto = this.instanciarProducto(data.tipo);
     return this.repositorio.actualizar(id, producto);
   }
 

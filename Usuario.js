@@ -1,4 +1,4 @@
-export class Usuario {
+class Usuario {
   constructor(nombre, email, password, tipoUsuario) {
     this.nombre = nombre;
     this.email = email;
@@ -15,3 +15,5 @@ export class Usuario {
     }
   }
 }
+
+export default Usuario;
