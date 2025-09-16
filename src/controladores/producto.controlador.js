@@ -21,7 +21,6 @@ class ProductoControlador {
   async insertar(req, res) {
     try {
       const data = req.body;
-      console.log(data);
       const producto = await this.servicio.insertar(data);
       res.status(201).json(producto);
     } catch (error) {
@@ -44,7 +43,8 @@ class ProductoControlador {
   async eliminar(req, res) {
     try {
       const { id } = req.params;
-      const producto = await this.servicio.eliminar(id);
+      const { tipo } = req.query;
+      const producto = await this.servicio.eliminar(id, tipo);
       if (!producto) return res.status(404).json({ error: "Producto no encontrado" });
       res.json({ mensaje: "Producto eliminado" });
     } catch (error) {

@@ -24,18 +24,17 @@ class ProductoServicio {
 }
 
   insertar(data) {
-    const producto = this.instanciarProducto(data.tipo);
-    console.log(producto);
+    const producto = this.instanciarProducto(data);
     return this.repositorio.insertar(producto);
   }
 
   actualizar(id, data) {
-    const producto = this.instanciarProducto(data.tipo);
+    const producto = this.instanciarProducto(data);
     return this.repositorio.actualizar(id, producto);
   }
 
-  eliminar(id) {
-    return this.repositorio.eliminar(id);
+  eliminar(id, tipo) {
+    return this.repositorio.eliminar(id, tipo);
   }
 }
 
