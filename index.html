@@ -5,91 +5,123 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Biblioteca - Gestión de Recursos</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>Frontend - Biblioteca</h1>
-  <!-- <p class="muted">Este single-file HTML permite crear, consultar, actualizar y eliminar <strong>libro</strong>, <strong>pelicula</strong> y <strong>laptop</strong> usando la API REST descrita en tu backend.</p> -->
+  <aside class="sidebar">
+    <h2>📚 Biblioteca</h2>
+    <nav>
+      <a href="#">Crear</a>
+      <a href="#">Buscar</a>
+      <a href="#">Actualizar</a>
+      <a href="#">Eliminar</a>
+    </nav>
+  </aside>
 
-  <div class="card">
-    <h2>Crear producto</h2>
-    <label>Tipo</label>
-    <select id="create-tipo">
-      <option value="libro">Libro</option>
-      <option value="pelicula">Pelicula</option>
-      <option value="laptop">Laptop</option>
-    </select>
+  <main class="content">
+    <h1>Gestión de Productos</h1>
 
-    <div id="create-fields"></div>
-    <button id="btn-create">Crear</button>
-  </div>
-
-  <div class="row">
-    <div class="col card">
-      <h2>Buscar por ID</h2>
-      <label>ID</label>
-      <input id="get-id" placeholder="id del producto (Mongo ObjectId)" />
+    <div class="card">
+      <h2>Crear producto</h2>
       <label>Tipo</label>
-      <select id="get-tipo">
+      <select id="create-tipo">
         <option value="libro">Libro</option>
-        <option value="pelicula">Pelicula</option>
+        <option value="pelicula">Película</option>
         <option value="laptop">Laptop</option>
       </select>
-      <button id="btn-get">Buscar</button>
-      <pre id="get-result">-</pre>
+
+      <div id="create-fields"></div>
+      <button id="btn-create">Crear</button>
     </div>
 
-    <div class="col card">
-      <h2>Actualizar producto</h2>
-      <label>ID</label>
-      <input id="update-id" placeholder="id del producto" />
-      <label>Tipo</label>
-      <select id="update-tipo">
-        <option value="libro">Libro</option>
-        <option value="pelicula">Pelicula</option>
-        <option value="laptop">Laptop</option>
-      </select>
-      <div id="update-fields"></div>
-      <button id="btn-update">Actualizar</button>
-      <pre id="update-result">-</pre>
-    </div>
-  </div>
-
-  <div class="card">
-    <h2>Eliminar producto</h2>
     <div class="row">
-      <div class="col">
+      <div class="col card">
+        <h2>Buscar por ID</h2>
         <label>ID</label>
-        <input id="delete-id" placeholder="id del producto" />
-      </div>
-      <div class="col">
+        <input id="get-id" placeholder="id del producto (Mongo ObjectId)" />
         <label>Tipo</label>
-        <select id="delete-tipo">
+        <select id="get-tipo">
           <option value="libro">Libro</option>
-          <option value="pelicula">Pelicula</option>
+          <option value="pelicula">Película</option>
           <option value="laptop">Laptop</option>
         </select>
+        <button id="btn-get">Buscar</button>
+        <pre id="get-result">-</pre>
+      </div>
+
+      <div class="col card">
+        <h2>Actualizar producto</h2>
+        <label>ID</label>
+        <input id="update-id" placeholder="id del producto" />
+        <label>Tipo</label>
+        <select id="update-tipo">
+          <option value="libro">Libro</option>
+          <option value="pelicula">Película</option>
+          <option value="laptop">Laptop</option>
+        </select>
+        <div id="update-fields"></div>
+        <button id="btn-update">Actualizar</button>
+        <pre id="update-result">-</pre>
       </div>
     </div>
-    <button id="btn-delete">Eliminar</button>
-    <pre id="delete-result">-</pre>
-  </div>
 
-  <hr />
-  <!-- <p class="muted">Notas: Cambia <code>BASE_URL</code> si tu servidor corre en otra ruta o puerto. El backend debe permitir CORS para que esto funcione desde un navegador.</p> -->
+    <div class="card">
+      <h2>Eliminar producto</h2>
+      <div class="row">
+        <div class="col">
+          <label>ID</label>
+          <input id="delete-id" placeholder="id del producto" />
+        </div>
+        <div class="col">
+          <label>Tipo</label>
+          <select id="delete-tipo">
+            <option value="libro">Libro</option>
+            <option value="pelicula">Película</option>
+            <option value="laptop">Laptop</option>
+          </select>
+        </div>
+      </div>
+      <button id="btn-delete">Eliminar</button>
+      <pre id="delete-result">-</pre>
+    </div>
 
-  <script>
+    <div class="card">
+      <h2>Registro de Usuario</h2>
+      <label>Nombre</label>
+      <input id="usuario-nombre" placeholder="nombre" />
+
+      <label>Email</label>
+      <input id="usuario-email" type="email" placeholder="correo@ejemplo.com" />
+
+      <label>Password</label>
+      <input id="usuario-pass" type="password" placeholder="********" />
+
+      <label>Tipo</label>
+      <select id="usuario-tipo">
+        <option value="cliente">Cliente</option>
+        <option value="admin">Administrador</option>
+      </select>
+
+      <button id="btn-usuario">Registrar usuario</button>
+      <pre id="usuario-result">-</pre>
+    </div>
+  </main>
+
+  <script type="module">
+    import { Usuario } from './usuario.js';  <!-- 👈 aquí conectamos con usuario.js -->
+
     const BASE_URL = window.location.origin;
     const schema = {
       libro: [
-        { name: 'titulo', label: 'Titulo', type: 'text' },
+        { name: 'titulo', label: 'Título', type: 'text' },
         { name: 'autor', label: 'Autor', type: 'text' },
         { name: 'isb', label: 'ISBN', type: 'text' },
-        { name: 'paginas', label: 'Paginas', type: 'number' }
+        { name: 'paginas', label: 'Páginas', type: 'number' }
       ],
       pelicula: [
-        { name: 'titulo', label: 'Titulo', type: 'text' },
+        { name: 'titulo', label: 'Título', type: 'text' },
         { name: 'director', label: 'Director', type: 'text' },
-        { name: 'duracion', label: 'Duracion', type: 'text', placeholder: 'p.ej. 120 min' }
+        { name: 'duracion', label: 'Duración', type: 'text', placeholder: 'p.ej. 120 min' }
       ],
       laptop: [
         { name: 'modelo', label: 'Modelo', type: 'text' },
@@ -199,6 +231,32 @@
       } catch (err) {
         console.error(err);
         document.getElementById('delete-result').textContent = 'Error de conexión';
+      }
+    });
+
+    document.getElementById('btn-usuario').addEventListener('click', () => {
+      const nombre = document.getElementById('usuario-nombre').value;
+      const email = document.getElementById('usuario-email').value;
+      const pass = document.getElementById('usuario-pass').value;
+      const tipo = document.getElementById('usuario-tipo').value;
+
+      if (!nombre || !email || !pass) {
+        return alert("Completa todos los campos");
+      }
+
+      const usuario = new Usuario(nombre, email, pass, tipo);
+
+      document.getElementById('usuario-result').textContent =
+        JSON.stringify(usuario, null, 2);
+
+      localStorage.setItem("usuario", JSON.stringify(usuario));
+    });
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const guardado = JSON.parse(localStorage.getItem("usuario"));
+      if (guardado) {
+        document.getElementById("usuario-result").textContent =
+          `👤 Usuario guardado:\n${JSON.stringify(guardado, null, 2)}`;
       }
     });
   </script>
